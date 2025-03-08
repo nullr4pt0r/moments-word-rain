@@ -5,6 +5,7 @@ import { Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import LanguageSelector from '@/components/LanguageSelector';
 import WordCard from '@/components/WordCard';
 import { useWordData } from '@/hooks/useWordData';
@@ -50,11 +51,11 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
       <Header />
       
       <motion.main
-        className="container px-4 py-8 flex flex-col items-center gap-8"
+        className="container px-4 py-8 flex flex-col items-center gap-8 flex-grow"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -92,12 +93,14 @@ const Index = () => {
         </motion.div>
         
         <motion.div 
-          className="text-center text-sm text-gray-500 mt-8"
+          className="text-center text-sm text-gray-500 dark:text-gray-400 mt-8"
           variants={itemVariants}
         >
           <p>Words update automatically every minute</p>
         </motion.div>
       </motion.main>
+      
+      <Footer />
     </div>
   );
 };
