@@ -70,7 +70,8 @@ const WordCard = ({ wordData, loading, lastFetchTime }: WordCardProps) => {
 
   // Social share function
   const handleShare = async () => {
-    const shareText = `Check out this word: ${wordData.word} - ${wordData.meanings.join(', ')}`;
+    const appUrl = window.location.origin;
+    const shareText = `Check out this word: ${wordData.word} - ${wordData.meanings.join(', ')}. Learn more words at ${appUrl}`;
     
     if (navigator.share) {
       try {
