@@ -1,6 +1,9 @@
 
 import { motion } from 'framer-motion';
 import { WordData } from '@/lib/types';
+import { Share2, ExternalLink } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { toast } from '@/components/ui/use-toast';
 
 interface WordCardProps {
   wordData: WordData | null;
@@ -63,6 +66,57 @@ const WordCard = ({ wordData, loading, lastFetchTime }: WordCardProps) => {
         damping: 12
       }
     }
+  };
+
+  // Social share function
+  const handleShare = async () => {
+    const shareText = `Check out this word: ${wordData.word} - ${wordData.meanings.join(', ')}`;
+    
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `Moments: ${wordData.word}`,
+          text: shareText,
+          url: window.location.href,
+        });
+        toast({
+          title: "Shared successfully",
+          description: "The word has been shared!",
+        });
+      } catch (error) {
+        console.error('Error sharing:', error);
+        // Fallback to copy to clipboard
+        copyToClipboard(shareText);
+      }
+    } else {
+      // Fallback for browsers that don't support navigator.share
+      copyToClipboard(shareText);
+    }
+  };
+
+  // Copy to clipboard function
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        toast({
+          title: "Copied to clipboard",
+          description: "Share it anywhere you want!",
+        });
+      })
+      .catch((error) => {
+        console.error('Failed to copy text:', error);
+        toast({
+          title: "Failed to copy",
+          description: "Please try again or manually copy the text",
+          variant: "destructive",
+        });
+      });
+  };
+
+  // Open search function
+  const handleKnowMore = () => {
+    const searchQuery = encodeURIComponent(`${wordData.word} ${wordData.language} meaning`);
+    window.open(`https://www.google.com/search?q=${searchQuery}`, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -144,6 +198,31 @@ const WordCard = ({ wordData, loading, lastFetchTime }: WordCardProps) => {
               </div>
             </motion.div>
           )}
+        </motion.div>
+
+        <motion.div 
+          className="flex gap-3 pt-4 justify-end"
+          variants={itemVariants}
+        >
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="flex items-center gap-1.5"
+            onClick={handleShare}
+          >
+            <Share2 className="h-4 w-4" />
+            <span>Share</span>
+          </Button>
+          
+          <Button 
+            variant="secondary" 
+            size="sm" 
+            className="flex items-center gap-1.5"
+            onClick={handleKnowMore}
+          >
+            <ExternalLink className="h-4 w-4" />
+            <span>Know More</span>
+          </Button>
         </motion.div>
       </div>
     </motion.div>
