@@ -31,24 +31,24 @@ export const countryLanguages = [
     ]
   },
   {
-    countryCode: 'es',
-    countryName: 'Spain',
+    countryCode: 'nl',
+    countryName: 'Netherlands',
     languages: [
-      { code: 'spanish', name: 'Spanish', flag: 'es' }
+      { code: 'dutch', name: 'Netherlands', flag: 'nl' }
     ]
   },
   {
-    countryCode: 'de',
-    countryName: 'Germany',
+    countryCode: 'ae',
+    countryName: 'United Arab Emirates',
     languages: [
-      { code: 'german', name: 'German', flag: 'de' }
+      { code: 'arabic', name: 'Arabic', flag: 'ae' }
     ]
   },
   {
-    countryCode: 'it',
-    countryName: 'Italy',
+    countryCode: 'pt',
+    countryName: 'Portugal',
     languages: [
-      { code: 'italian', name: 'Italian', flag: 'it' }
+      { code: 'portuguese', name: 'Portuguese', flag: 'pt' }
     ]
   },
   {
@@ -56,9 +56,10 @@ export const countryLanguages = [
     countryName: 'India',
     languages: [
       { code: 'hindi', name: 'Hindi', flag: 'in' },
+      { code: 'malayalam', name: 'Malayalam', flag: 'in' },
       { code: 'tamil', name: 'Tamil', flag: 'in' },
-      { code: 'telugu', name: 'Telugu', flag: 'in' },
-      { code: 'bengali', name: 'Bengali', flag: 'in' }
+      { code: 'telugu', name: 'Telugu', flag: 'in' }
+     
     ]
   },
   {
@@ -72,8 +73,14 @@ export const countryLanguages = [
     countryCode: 'cn',
     countryName: 'China',
     languages: [
-      { code: 'mandarin', name: 'Mandarin', flag: 'cn' },
-      { code: 'cantonese', name: 'Cantonese', flag: 'cn' }
+      { code: 'mandarin', name: 'Mandarin', flag: 'cn' }
+    ]
+  },
+{
+    countryCode: 'kr',
+    countryName: 'South Korea',
+    languages: [
+      { code: 'korean', name: 'Korean', flag: 'kr' }
     ]
   }
 ];
@@ -89,7 +96,7 @@ export const fallbackWordData: WordData = {
   remarks: [
     "A 'good catastrophe' in a story"
   ],
-  phonetics: "abcd"
+  phonetics: "yoo-kuh-TASS-truh-fee"
 };
 
 export const fetchWord = async (language: string): Promise<WordData> => {
