@@ -102,7 +102,7 @@ export const fallbackWordData: WordData = {
 export const fetchWord = async (language: string): Promise<WordData> => {
   try {
     const sessionId = getSessionId();
-    const response = await fetch(`http://135.235.174.38:9292/api/words?lang=${language}`, {
+    const response = await fetch(`https://135.235.174.38:9292/api/words?lang=${language}`, {
       headers: {
         'sessId': sessionId
       }
