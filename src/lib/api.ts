@@ -1,5 +1,18 @@
 
 import { WordData } from './types';
+import { v4 as uuidv4 } from 'uuid';
+
+// Get or create a session ID
+const getSessionId = (): string => {
+  let sessionId = sessionStorage.getItem('sessionId');
+  
+  if (!sessionId) {
+    sessionId = uuidv4();
+    sessionStorage.setItem('sessionId', sessionId);
+  }
+  
+  return sessionId;
+};
 
 // Sample language data by country
 export const countryLanguages = [
@@ -81,7 +94,12 @@ export const fallbackWordData: WordData = {
 
 export const fetchWord = async (language: string): Promise<WordData> => {
   try {
-    const response = await fetch(`http://localhost:9292/api/words?lang=${language}`);
+    const sessionId = getSessionId();
+    const response = await fetch(`http://localhost:9292/api/words?lang=${language}`, {
+      headers: {
+        'sessId': sessionId
+      }
+    });
     
     if (!response.ok) {
       throw new Error('Network response was not ok');
