@@ -69,10 +69,55 @@ const WordCard = ({ wordData, loading, lastFetchTime }: WordCardProps) => {
   };
 
   // Social share function
+  // const handleShare = async () => {
+  //   const appUrl = window.location.origin;
+  //   const shareText = `Check out this word: ${wordData.word} - ${wordData.meanings.join(', ')}. Learn more words at ${appUrl}`;
+    
+  //   if (navigator.share) {
+  //     try {
+  //       await navigator.share({
+  //         title: `Moments: ${wordData.word}`,
+  //         text: shareText,
+  //         url: window.location.href,
+  //       });
+  //       toast({
+  //         title: "Shared successfully",
+  //         description: "The word has been shared!",
+  //       });
+  //     } catch (error) {
+  //       console.error('Error sharing:', error);
+  //       // Fallback to copy to clipboard
+  //       copyToClipboard(shareText);
+  //     }
+  //   } else {
+  //     // Fallback for browsers that don't support navigator.share
+  //     copyToClipboard(shareText);
+  //   }
+  // };
+
+  // // Copy to clipboard function
+  // const copyToClipboard = (text: string) => {
+  //   navigator.clipboard.writeText(text)
+  //     .then(() => {
+  //       toast({
+  //         title: "Copied to clipboard",
+  //         description: "Share it anywhere you want!",
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.error('Failed to copy text:', error);
+  //       toast({
+  //         title: "Failed to copy",
+  //         description: "Please try again or manually copy the text",
+  //         variant: "destructive",
+  //       });
+  //     });
+  // };
+
   const handleShare = async () => {
     const appUrl = window.location.origin;
-    const shareText = `Check out this word: ${wordData.word} - ${wordData.meanings.join(', ')}. Learn more words at ${appUrl}`;
-    
+    const shareText = `Check out "${wordData.word}": ${wordData.meanings.join(', ')}. Discover more at ${appUrl}`;
+  
     if (navigator.share) {
       try {
         await navigator.share({
@@ -80,40 +125,40 @@ const WordCard = ({ wordData, loading, lastFetchTime }: WordCardProps) => {
           text: shareText,
           url: window.location.href,
         });
+        // Use the toast function correctly
         toast({
-          title: "Shared successfully",
-          description: "The word has been shared!",
+          title: "Shared successfully!",
+          description: "The word has been shared.",
         });
       } catch (error) {
         console.error('Error sharing:', error);
-        // Fallback to copy to clipboard
-        copyToClipboard(shareText);
+        copyToClipboard(shareText); // Fallback to clipboard
       }
     } else {
-      // Fallback for browsers that don't support navigator.share
-      copyToClipboard(shareText);
+      copyToClipboard(shareText); // Fallback for unsupported browsers
     }
   };
-
-  // Copy to clipboard function
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text)
-      .then(() => {
-        toast({
-          title: "Copied to clipboard",
-          description: "Share it anywhere you want!",
-        });
-      })
-      .catch((error) => {
-        console.error('Failed to copy text:', error);
-        toast({
-          title: "Failed to copy",
-          description: "Please try again or manually copy the text",
-          variant: "destructive",
-        });
+  
+  // Helper function to copy text to clipboard
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text).then(() => {
+      // Use the toast function correctly
+      toast({
+        title: "Copied to clipboard!",
+        description: "The content has been copied to your clipboard.",
       });
+    }).catch((error) => {
+      console.error('Failed to copy:', error);
+      // Use the toast function correctly
+      toast({
+        title: "Failed to copy",
+        description: "Please copy the content manually.",
+        variant: "destructive", // Optional: Use a destructive variant for errors
+      });
+    });
   };
 
+  
   // Open search function
   const handleKnowMore = () => {
     const searchQuery = encodeURIComponent(`${wordData.word} ${wordData.language} meaning`);
@@ -212,7 +257,7 @@ const WordCard = ({ wordData, loading, lastFetchTime }: WordCardProps) => {
             onClick={handleShare}
           >
             <Share2 className="h-4 w-4" />
-            <span>Share</span>
+            <span>Spread Word</span>
           </Button>
           
           <Button 
