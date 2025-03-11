@@ -36,67 +36,70 @@ export const countryLanguages = [
     languages: [
       { code: 'dutch', name: 'Netherlands', flag: 'nl' }
     ]
-  },
-  {
-    countryCode: 'ae',
-    countryName: 'United Arab Emirates',
-    languages: [
-      { code: 'arabic', name: 'Arabic', flag: 'ae' }
-    ]
-  },
-  {
-    countryCode: 'pt',
-    countryName: 'Portugal',
-    languages: [
-      { code: 'portuguese', name: 'Portuguese', flag: 'pt' }
-    ]
-  },
-  {
-    countryCode: 'in',
-    countryName: 'India',
-    languages: [
-      { code: 'hindi', name: 'Hindi', flag: 'in' },
-      { code: 'malayalam', name: 'Malayalam', flag: 'in' },
-      { code: 'tamil', name: 'Tamil', flag: 'in' },
-      { code: 'telugu', name: 'Telugu', flag: 'in' }
-     
-    ]
-  },
-  {
-    countryCode: 'jp',
-    countryName: 'Japan',
-    languages: [
-      { code: 'japanese', name: 'Japanese', flag: 'jp' }
-    ]
-  },
-  {
-    countryCode: 'cn',
-    countryName: 'China',
-    languages: [
-      { code: 'mandarin', name: 'Mandarin', flag: 'cn' }
-    ]
-  },
-{
-    countryCode: 'kr',
-    countryName: 'South Korea',
-    languages: [
-      { code: 'korean', name: 'Korean', flag: 'kr' }
-    ]
   }
+//   ,
+//   {
+//     countryCode: 'ae',
+//     countryName: 'United Arab Emirates',
+//     languages: [
+//       { code: 'arabic', name: 'Arabic', flag: 'ae' }
+//     ]
+//   },
+//   {
+//     countryCode: 'pt',
+//     countryName: 'Portugal',
+//     languages: [
+//       { code: 'portuguese', name: 'Portuguese', flag: 'pt' }
+//     ]
+//   },
+//   {
+//     countryCode: 'in',
+//     countryName: 'India',
+//     languages: [
+//       { code: 'hindi', name: 'Hindi', flag: 'in' },
+//       { code: 'malayalam', name: 'Malayalam', flag: 'in' },
+//       { code: 'tamil', name: 'Tamil', flag: 'in' },
+//       { code: 'telugu', name: 'Telugu', flag: 'in' }
+     
+//     ]
+//   },
+//   {
+//     countryCode: 'jp',
+//     countryName: 'Japan',
+//     languages: [
+//       { code: 'japanese', name: 'Japanese', flag: 'jp' }
+//     ]
+//   },
+//   {
+//     countryCode: 'cn',
+//     countryName: 'China',
+//     languages: [
+//       { code: 'mandarin', name: 'Mandarin', flag: 'cn' }
+//     ]
+//   },
+// {
+//     countryCode: 'kr',
+//     countryName: 'South Korea',
+//     languages: [
+//       { code: 'korean', name: 'Korean', flag: 'kr' }
+//     ]
+//   }
 ];
 
 // Fallback data in case API fails
 export const fallbackWordData: WordData = {
-  word: "Eucatastrophe",
-  language: "english",
-  meanings: [
-    "A sudden turn towards good"
-  ],
-  englishTranslation: "yoo-kuh-tass-truh-fee",
-  remarks: [
-    "A 'good catastrophe' in a story"
-  ],
-  phonetics: "yoo-kuh-TASS-truh-fee"
+    word: "Chiaroscuro",
+    language: "english",
+    meanings: [
+        "The use of strong contrasts between light and dark in art",
+        "A technique to create depth and drama in visual compositions"
+    ],
+    englishTranslation: "Light and dark contrast",
+    remarks: [
+        "A classic technique used by Renaissance artists like Caravaggio",
+        "Often used to evoke emotion and focus in paintings"
+    ],
+    phonetics: "kee-ahr-uh-skyoor-oh"
 };
 
 export const fetchWord = async (language: string): Promise<WordData> => {
