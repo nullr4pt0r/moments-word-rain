@@ -46,7 +46,7 @@ const Footer = () => {
     >
       <div className="flex flex-col sm:flex-row items-center gap-4">
         <a 
-          href="https://lovable.ai" 
+          href="https://lovable.dev" 
           target="_blank" 
           rel="noopener noreferrer"
           className="flex items-center gap-1 hover:text-moments-primary-blue transition-colors"
