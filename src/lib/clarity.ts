@@ -1,4 +1,5 @@
-import clarity from '@microsoft/clarity';
+
+import { clarity } from 'react-microsoft-clarity';
 import { v4 as uuidv4 } from 'uuid';
 
 /**
@@ -42,8 +43,11 @@ const getUserId = (): string => {
  */
 export const identifyUser = (userId: string): void => {
   try {
-    // Only passing the required customId parameter
-    clarity.identify(userId);
+    // Using new identify method with user properties
+    clarity.identify(userId, {
+      type: 'anonymous',
+      sessionId: uuidv4()
+    });
     console.log('User identified in Clarity:', userId);
   } catch (error) {
     console.error('Failed to identify user in Clarity:', error);
@@ -55,11 +59,12 @@ export const identifyUser = (userId: string): void => {
  */
 const setDefaultTags = (): void => {
   try {
-    // Set some useful default tags
-    clarity.setTag('app_version', '1.0.0');
-    clarity.setTag('environment', import.meta.env.MODE);
-    clarity.setTag('language', navigator.language);
-    clarity.setTag('platform', navigator.platform);
+    if (clarity.hasStarted()) {
+      clarity.setTag('app_version', '1.0.0');
+      clarity.setTag('environment', import.meta.env.MODE);
+      clarity.setTag('language', navigator.language);
+      clarity.setTag('platform', navigator.platform);
+    }
   } catch (error) {
     console.error('Failed to set default tags in Clarity:', error);
   }
@@ -71,8 +76,10 @@ const setDefaultTags = (): void => {
  */
 export const trackEvent = (eventName: string): void => {
   try {
-    clarity.event(eventName);
-    console.log('Event tracked in Clarity:', eventName);
+    if (clarity.hasStarted()) {
+      clarity.setEvent(eventName);
+      console.log('Event tracked in Clarity:', eventName);
+    }
   } catch (error) {
     console.error('Failed to track event in Clarity:', error);
   }
@@ -85,8 +92,10 @@ export const trackEvent = (eventName: string): void => {
  */
 export const setTag = (key: string, value: string | string[]): void => {
   try {
-    clarity.setTag(key, value);
-    console.log('Tag set in Clarity:', key, value);
+    if (clarity.hasStarted()) {
+      clarity.setTag(key, value);
+      console.log('Tag set in Clarity:', key, value);
+    }
   } catch (error) {
     console.error('Failed to set tag in Clarity:', error);
   }
@@ -98,8 +107,10 @@ export const setTag = (key: string, value: string | string[]): void => {
  */
 export const upgradeSession = (reason: string): void => {
   try {
-    clarity.upgrade(reason);
-    console.log('Session upgraded in Clarity:', reason);
+    if (clarity.hasStarted()) {
+      clarity.upgrade(reason);
+      console.log('Session upgraded in Clarity:', reason);
+    }
   } catch (error) {
     console.error('Failed to upgrade session in Clarity:', error);
   }
