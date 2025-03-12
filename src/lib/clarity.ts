@@ -1,5 +1,5 @@
 
-import { clarity } from '@microsoft/clarity';
+import clarity from '@microsoft/clarity';
 
 /**
  * Initializes Microsoft Clarity analytics with the provided project ID
