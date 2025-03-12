@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { WordData } from '@/lib/types';
 import { fetchWord, fallbackWordData } from '@/lib/api';
 import { toast } from '@/components/ui/use-toast';
+import { trackEvent, setTag } from '@/lib/clarity';
 
 export function useWordData(selectedLanguage: string) {
   const [wordData, setWordData] = useState<WordData | null>(null);
@@ -18,13 +19,25 @@ export function useWordData(selectedLanguage: string) {
     setLoading(true);
     setError(null);
     
+    // Track API request in Clarity
+    trackEvent('api_request_started');
+    setTag('api_language', selectedLanguage);
+    
     try {
       const data = await fetchWord(selectedLanguage);
       setWordData(data);
       setLastFetchTime(new Date());
+      
+      // Track successful API response
+      trackEvent('api_request_succeeded');
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to fetch word';
       setError(errorMessage);
+      
+      // Track API error in Clarity
+      trackEvent('api_request_failed');
+      setTag('api_error', errorMessage);
+      
       toast({
         title: "Error",
         description: `Could not fetch new word: ${errorMessage}`,

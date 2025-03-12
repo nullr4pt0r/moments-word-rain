@@ -9,6 +9,7 @@ import Footer from '@/components/Footer';
 import LanguageSelector from '@/components/LanguageSelector';
 import WordCard from '@/components/WordCard';
 import { useWordData } from '@/hooks/useWordData';
+import { trackEvent, setTag } from '@/lib/clarity';
 
 const Index = () => {
   const [selectedLanguage, setSelectedLanguage] = useState<string>('english');
@@ -16,6 +17,10 @@ const Index = () => {
   
   const handleLanguageChange = (language: string) => {
     setSelectedLanguage(language);
+    // Track language change in Clarity
+    trackEvent('language_changed');
+    setTag('selected_language', language);
+    
     toast({
       title: "Language Changed",
       description: `Selected language: ${language.charAt(0).toUpperCase() + language.slice(1)}`,
@@ -24,7 +29,24 @@ const Index = () => {
   
   const handleNewWordClick = () => {
     fetchNewWord();
+    // Track new word request in Clarity
+    trackEvent('new_word_requested');
   };
+  
+  // Track initial page load
+  useEffect(() => {
+    trackEvent('page_loaded');
+    // Set a tag for the current page
+    setTag('page', 'home');
+  }, []);
+  
+  // Track when word data changes
+  useEffect(() => {
+    if (wordData) {
+      trackEvent('word_data_loaded');
+      setTag('current_word', wordData.word);
+    }
+  }, [wordData]);
   
   const containerVariants = {
     hidden: { opacity: 0 },

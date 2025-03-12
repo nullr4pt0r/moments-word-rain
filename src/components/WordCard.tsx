@@ -4,6 +4,7 @@ import { WordData } from '@/lib/types';
 import { Share2, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
+import { trackEvent, setTag, upgradeSession } from '@/lib/clarity';
 
 interface WordCardProps {
   wordData: WordData | null;
@@ -115,6 +116,13 @@ const WordCard = ({ wordData, loading, lastFetchTime }: WordCardProps) => {
   // };
 
   const handleShare = async () => {
+    if (!wordData) return;
+    
+    // Track share attempt in Clarity
+    trackEvent('word_shared');
+    // Upgrade this session since sharing is an important interaction
+    upgradeSession('word_sharing');
+    
     const appUrl = window.location.origin;
     const shareText = `Check out "${wordData.word}": ${wordData.meanings.join(', ')}. Discover more at ${appUrl}`;
   
@@ -125,7 +133,6 @@ const WordCard = ({ wordData, loading, lastFetchTime }: WordCardProps) => {
           text: shareText,
           url: window.location.href,
         });
-        // Use the toast function correctly
         toast({
           title: "Shared successfully!",
           description: "The word has been shared.",
@@ -142,25 +149,28 @@ const WordCard = ({ wordData, loading, lastFetchTime }: WordCardProps) => {
   // Helper function to copy text to clipboard
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text).then(() => {
-      // Use the toast function correctly
       toast({
         title: "Copied to clipboard!",
         description: "The content has been copied to your clipboard.",
       });
     }).catch((error) => {
       console.error('Failed to copy:', error);
-      // Use the toast function correctly
       toast({
         title: "Failed to copy",
         description: "Please copy the content manually.",
-        variant: "destructive", // Optional: Use a destructive variant for errors
+        variant: "destructive",
       });
     });
   };
-
   
   // Open search function
   const handleKnowMore = () => {
+    if (!wordData) return;
+    
+    // Track know more click in Clarity
+    trackEvent('know_more_clicked');
+    setTag('searched_word', wordData.word);
+    
     const searchQuery = encodeURIComponent(`${wordData.word} ${wordData.language} meaning`);
     window.open(`https://www.google.com/search?q=${searchQuery}`, '_blank', 'noopener,noreferrer');
   };
