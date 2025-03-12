@@ -56,7 +56,7 @@ const Footer = () => {
         </a>
         
         <a 
-          href="https://github.com/yourusername/moments" 
+          href="https://github.com/nullr4pt0r/moment" 
           target="_blank" 
           rel="noopener noreferrer"
           className="flex items-center gap-1 hover:text-moments-primary-blue transition-colors"
