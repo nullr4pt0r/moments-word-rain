@@ -1,4 +1,3 @@
-
 import clarity from '@microsoft/clarity';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -7,11 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
  */
 export const initClarity = (): void => {
   try {
-    clarity.init("qn5sst2s23", {
-      upload: 'https://www.clarity.ms/collect',
-      delay: 500, // Short delay to not affect page load performance
-      lean: true, // Use the lean version for better performance
-    });
+    clarity.init("qn5sst2s23");
     
     // Set visitor identifier
     const userId = getUserId();
@@ -109,4 +104,3 @@ export const upgradeSession = (reason: string): void => {
     console.error('Failed to upgrade session in Clarity:', error);
   }
 };
-
